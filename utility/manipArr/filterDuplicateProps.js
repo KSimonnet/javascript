@@ -1,4 +1,4 @@
-const json_arr = [
+/* const json_arr = [
   {
     name: "sourcing",
     parent: "talent_acquisition",
@@ -12,13 +12,17 @@ const json_arr = [
     parent: "supply_chain",
   },
 ];
+const duplicates = filterDuplicates(json_arr, "parent");
+*/
 
-/**
- * in object, check for duplicates of a property
- */
 // SOLUTION 1
-
-function filterDuplicates(arr_source, str_property) {
+/**
+ * in an object, check for duplicates of a property name
+ * @param {Array} arr_source the array to check duplicates for
+ * @param {string} str_property the key of the property to check for duplicates
+ * @returns {Array} the array of duplicates
+ */
+function filterDuplicateProps(arr_source, str_property) {
   return arr_source.filter((item, index) => {
     return arr_source.some(
       (element, i) =>
@@ -26,7 +30,7 @@ function filterDuplicates(arr_source, str_property) {
     );
   });
 }
-const duplicates = filterDuplicates(json_arr, "parent");
+export { filterDuplicateProps };
 
 /* // SOLUTION 2
   const parentMap = new Map();

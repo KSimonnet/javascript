@@ -1,14 +1,6 @@
-/**
- * from local directory, get the hierarchical structure of directorty entries and and sub-entries and,
- * return a representation in an array of JSON objects
- */
-
 import fs from "fs";
 import { lstat, readdir, access } from "fs/promises";
 import path from "path";
-
-const path_myDirectory = "C:/Users/yourusername/path/to/directory";
-const treeString = await listFileTreeRecursive(path_myDirectory);
 
 /**
  * convert a file directory to tree string
@@ -16,15 +8,6 @@ const treeString = await listFileTreeRecursive(path_myDirectory);
  * @returns {JSON} treeString the hierarchical tree of the directory
  */
 // https://stackoverflow.com/questions/11194287/convert-a-directory-structure-in-the-filesystem-to-json-with-node-js
-
-async function existsAsync(file) {
-  try {
-    await access(file, fs.constants.F_OK);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
 
 async function listFileTreeRecursive(dir) {
   const recurse = async (entry) => {
@@ -50,6 +33,21 @@ async function listFileTreeRecursive(dir) {
       entries: childEntries,
     };
   };
-
   return recurse(dir);
 }
+
+async function existsAsync(file) {
+  try {
+    await access(file, fs.constants.F_OK);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+export { listFileTreeRecursive };
+
+/* const path_myDirectory = "C:/Users/ubogo/OneDrive/Bureau/taxonomy_5112023";
+(async function displayRes() {
+  const treeString = await listFileTreeRecursive(path_myDirectory);
+  console.log(JSON.stringify(treeString, null, 2));
+})(); */

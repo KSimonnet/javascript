@@ -1,16 +1,13 @@
-/**
- * SOLUTION 1
- */
-
 import fs from "fs";
 import path from "path";
 import XLSX from "xlsx";
+// import fs from "fs/promises";
 
+/* const DIR_PATH =
+  "C:/Users/ubogo/OneDrive/Bureau/canBeDeleted_exeksourcingData/DB_listOfCpies_sales";
 const DIR_PATH = "C:/Users/ubogo/OneDrive/Bureau/canBeDeleted";
-const FILE_EXT = ".xlsx"; // ".json"
-const fileContent_arr = await getFileContentsFromDir(DIR_PATH, FILE_EXT);
-const JSONdata = await convertBufferToJSON(fileContent_arr);
-console.log(JSONdata);
+const FILE_EXT = ".json";
+const FILE_EXT = ".xlsx"; */
 
 /**
  * given an absolute path to a directory, it will get all files and sub-files's paths, then get their content and return them concatenated in an array of JSON objects
@@ -37,6 +34,7 @@ async function getFileContentsFromDir(dir, ext) {
   ).catch((err) => console.error("Failed to read directory", err.message));
   return files_arr.flat(Infinity);
 }
+export { getFileContentsFromDir };
 
 // which can be broken down into the following:
 /* async function getFiles(dir) {
@@ -79,7 +77,7 @@ async function getContents(filePath_arr) {
  * @param {Array} content_arr array of <Buffer> objects
  * @return {JSON} an array of JSON objects
  */
-async function convertBufferToJSON(content_arr) {
+async function convertBufferToJSON(content_arr, FILE_EXT) {
   const jdat_arr = await Promise.all(
     content_arr.map((content) => {
       switch (FILE_EXT) {
@@ -102,10 +100,13 @@ async function convertBufferToJSON(content_arr) {
   ).catch((err) => console.error("Failed to parse to JSON", err.message));
   return jdat_arr.flat(Infinity);
 }
+export { convertBufferToJSON };
 
-/**
- * SOLUTION 2
- */
+/* const fileContent_arr = await getFileContentsFromDir(DIR_PATH, FILE_EXT);
+const JSONdata = await convertBufferToJSON(fileContent_arr);
+console.log(JSONdata); */
+
+// André's version
 var tryJSONparse = (s) => {
   try {
     return JSON.parse(s);
@@ -125,7 +126,8 @@ function getJSONdataInFolder(params) {
   }
   return contain_arr.flat();
 }
+export { getJSONdataInFolder };
 
-getJSONdataInFolder({
+/* getJSONdataInFolder({
   target_folder: "./your target folder name",
-});
+}); */

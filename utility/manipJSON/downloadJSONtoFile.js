@@ -1,4 +1,4 @@
-const keyValue_arr = [
+/* const keyValue_arr = [
   {
     key1: "value1",
     key2: "value2",
@@ -9,7 +9,7 @@ downloadJSONtoFile(
   JSON.stringify(keyValue_arr, null, null),
   "yourfile.json",
   "text/plain"
-);
+); */
 
 /**
  * download JSON to a file
@@ -24,3 +24,4 @@ function downloadJSONtoFile(content, fileName, contentType) {
   a.download = fileName;
   a.click();
 }
+export { downloadJSONtoFile };
