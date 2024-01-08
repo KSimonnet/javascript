@@ -6,7 +6,7 @@ Gets all JSON files from a local directory > filters against a list of `key: val
 
 **Install**
 
-The codebase is modular: `main.js` calls functions from the folder `Utility` located at the root of the folder `NodeJS` (./NodeJS/Utility).
+The codebase is modular: `main.js` calls functions from the folder `Utility`
 
 1. In your preferred CLI, navigate to your working directory by typing: `cd C:/USERS/USERNAME/PATH/TO/YOUR/DIRECTORY`
 2. Create a folder by typing:
