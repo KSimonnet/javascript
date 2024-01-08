@@ -1,3 +1,4 @@
+import * as manipulateArray from "../manipArr/barrel-manipArr.js";
 /**
  * Parses a tree object and filters it based on a mask of search criteria.
  * inspired by: https://github.com/pichsenmeister/json-filter/tree/master
@@ -51,7 +52,7 @@ const filterTreeAgainstMask = (tree, mask, trim) => {
       };
 
       parseNode(tree);
-      return _generateResultObj(arr_matches);
+      return manipulateArray.convertArrToUtilityObj(arr_matches);
     }
   } catch (e) {
     if (!(e instanceof Error)) {
@@ -78,21 +79,6 @@ const _trim = (tree, mask) => {
     return obj;
   }
   return tree;
-};
-
-/**
- * Turns the result into a utility object.
- * @param {Array} arr - An array of matched nodes.
- * @returns {Object} - The result object.
- */
-const _generateResultObj = (arr) => {
-  const obj = {};
-  obj.length = arr.length;
-  obj.all = () => arr;
-  obj.get = (index) => (index > arr.length - 1 ? undefined : arr[index]);
-  obj.first = () => obj.get(0);
-  obj.last = () => obj.get(arr.length - 1);
-  return obj;
 };
 
 export { filterTreeAgainstMask };
