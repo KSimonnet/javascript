@@ -6,7 +6,7 @@
  * @param {boolean} trim Whether to extract the full node or just the matched properties
  * @returns {Array} An array of matched nodes
  */
-const fromMaskFilterTree = (tree, mask, trim) => {
+const filterTreeAgainstMask = (tree, mask, trim) => {
   const arr_matches = [];
   try {
     if (mask && typeof mask === "object") {
@@ -95,4 +95,4 @@ const _generateResultObj = (arr) => {
   return obj;
 };
 
-export { fromMaskFilterTree };
+export { filterTreeAgainstMask };
