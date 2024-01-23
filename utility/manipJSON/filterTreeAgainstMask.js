@@ -29,7 +29,7 @@ function filterTreeAgainstMask(obj_tree, mask_tree, trim) {
           const maskKeys = Object.keys(mask_node);
           // check if all maskKeys match with this node's properties
           if (maskKeys.every((key) => nodeKeys.includes(key))) {
-            const match = maskKeys.filter((key) => {
+            const match = maskKeys.every((key) => {
               const nodeValue = obj_node[key];
               const maskValue = mask_node[key];
               if (typeof nodeValue === "string") {
