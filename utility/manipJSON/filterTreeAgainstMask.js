@@ -28,6 +28,12 @@ function filterTreeAgainstMask(obj_tree, mask_tree, trim) {
           const nodeKeys = Object.keys(obj_node);
           const maskKeys = Object.keys(mask_node);
           // check if all maskKeys match with this node's properties
+          /* TODO - fix bug. The every method is not intended to be used with recursive functions. 
+          It's designed to test whether all elements in the array pass the test implemented by the provided function. 
+          In this case, it's used to perform a recursive operation on each element of the array, which is not its intended use.
+          The every method will stop iterating over the array as soon as the callback function returns false. 
+          But in this case, the callback function is making a recursive call, which means it's not returning anything
+          until it hits the base case. This could lead to unexpected behavior. */
           if (maskKeys.every((key) => nodeKeys.includes(key))) {
             const match = maskKeys.every((key) => {
               const nodeValue = obj_node[key];
