@@ -10,7 +10,8 @@ import * as manipulateArray from "../manipArr/barrel-manipArr.js";
 
 function filterTreeAgainstMask(obj_tree, mask_tree, trim) {
   const arr_matches = [];
-  return traverseNode(obj_tree, mask_tree);
+  traverseNode(obj_tree, mask_tree);
+  return arr_matches;
   function traverseNode(obj_node, mask_node) {
     try {
       // check if 'obj_node' and 'mask_node' are objects with enumerable string-keyed property names
@@ -24,17 +25,18 @@ function filterTreeAgainstMask(obj_tree, mask_tree, trim) {
         if (Array.isArray(obj_node)) {
           // recursively traverse node for match with sub nodes
           obj_node.forEach((node) => traverseNode(node, mask_node));
+          // arr.filter((ob) => ob[child]?.some((loc) => loc[key] == target));
         } else {
           const nodeKeys = Object.keys(obj_node);
           const maskKeys = Object.keys(mask_node);
           // check if all maskKeys match with this node's properties
-          /* TODO - fix bug. The every method is not intended to be used with recursive functions. 
-          It's designed to test whether all elements in the array pass the test implemented by the provided function. 
-          In this case, it's used to perform a recursive operation on each element of the array, which is not its intended use.
-          The every method will stop iterating over the array as soon as the callback function returns false. 
-          But in this case, the callback function is making a recursive call, which means it's not returning anything
-          until it hits the base case. This could lead to unexpected behavior. */
           if (maskKeys.every((key) => nodeKeys.includes(key))) {
+            /*in your code, there's a problem. The every method is not intended to be used with recursive functions. 
+            It's designed to test whether all elements in the array pass the test implemented by the provided function. 
+            In your case, you're using it to perform a recursive operation on each element of the array, which is not its intended use.
+            The every method will stop iterating over the array as soon as the callback function returns false. 
+            But in your case, the callback function is making a recursive call, which means it's not returning anything
+            until it hits the base case. This could lead to unexpected behavior. */
             const match = maskKeys.every((key) => {
               const nodeValue = obj_node[key];
               const maskValue = mask_node[key];
@@ -45,23 +47,24 @@ function filterTreeAgainstMask(obj_tree, mask_tree, trim) {
                   return nodeValue === maskValue;
                 }
               } else if (typeof nodeValue === typeof maskValue) {
-                traverseNode(nodeValue, maskValue);
+                return traverseNode(nodeValue, maskValue);
               }
+              return false;
             });
             // check that all maskValues matched
             if (match) {
               arr_matches.push(trim ? _trim(obj_node, mask_node) : obj_node);
+              return true;
             }
           }
         }
       }
-      // return manipulateArray.convertArrToUtilityObj(arr_matches);
-      return arr_matches;
     } catch (e) {
       if (!(e instanceof Error)) {
         let e = new Error(e);
       }
       console.error(e.message);
+      return false;
     }
   }
 }
