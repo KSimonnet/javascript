@@ -62,3 +62,113 @@ function traverseNode(node, mask) {
   });
 }
 export { filterTreeAgainstMask };
+
+/**
+ * test
+ */
+// // Test case 1: Empty source_node and mask_node
+// const result1 = filterTreeAgainstMask({}, {});
+// console.log(result1); // []
+
+// // Test case 2: Empty source_node and non-empty mask_node
+// const result2 = filterTreeAgainstMask({}, { name: "John" });
+// console.log(result2); // []
+
+// // Test case 3: Non-empty source_node and empty mask_node
+// const result3 = filterTreeAgainstMask({ name: "John" }, {});
+// console.log(result3); // []
+
+// // Test case 4: Non-matching properties in source_node and mask_node
+// const result4 = filterTreeAgainstMask(
+//   { name: "John", age: 25 },
+//   { name: "John", gender: "Male" },
+// );
+// console.log(result4); // []
+
+// // Test case 5: Matching properties in source_node and mask_node
+// const result5 = filterTreeAgainstMask(
+//   { name: "John", age: 25 },
+//   { name: "John", age: 25 },
+// );
+// console.log(result5); // [{ name: "John", age: 25 }]
+
+// // Test case 6: Nested objects with matching properties
+// const sourceNode6 = {
+//   name: "John",
+//   age: 25,
+//   children: {
+//     Alice: {
+//       address: {
+//         city: "New York",
+//         country: "USA",
+//       },
+//     },
+//     Kevin: {
+//       address: {
+//         city: "Sydney",
+//         country: "AU",
+//       },
+//     },
+//   },
+// };
+// const maskNode6 = {
+//   name: "John",
+//   children: {
+//     Kevin: {
+//       address: {
+//         city: "Sydney",
+//         country: "AU",
+//       },
+//     },
+//   },
+// };
+// const result6 = filterTreeAgainstMask(sourceNode6, maskNode6);
+// console.log(result6); // [{ name: "John", age: 25, address: { city: "New York", country: "USA" } }]
+
+// // Test case 7: Nested objects with non-matching properties
+// const sourceNode7 = {
+//   name: "John",
+//   age: 25,
+//   address: {
+//     city: "New York",
+//     country: "USA",
+//   },
+// };
+// const maskNode7 = {
+//   name: "John",
+//   address: {
+//     city: "Los Angeles",
+//   },
+// };
+// const result7 = filterTreeAgainstMask(sourceNode7, maskNode7);
+// console.log(result7); // []
+
+// // Test case 8: Array of objects with matching properties
+// const sourceNode8 = [
+//   { name: "John", age: 25 },
+//   { name: "Jane", age: 30 },
+//   { name: "Bob", age: 40 },
+// ];
+// const maskNode8 = { age: 30 };
+// const result8 = filterTreeAgainstMask(sourceNode8, maskNode8);
+// console.log(result8); // [{ name: "Jane", age: 30 }]
+
+// // Test case 9: Array of objects with non-matching properties
+// const sourceNode9 = [
+//   { name: "John", age: 25 },
+//   { name: "Jane", age: 30 },
+//   { name: "Bob", age: 40 },
+// ];
+// const maskNode9 = { gender: "Male" };
+// const result9 = filterTreeAgainstMask(sourceNode9, maskNode9);
+// console.log(result9); // []
+
+// // Test case 10: Array of objects with nested objects and matching properties
+// const sourceNode10 = [
+//   { name: "John", age: 25, address: { city: "New York" } },
+//   { name: "Jane", age: 30, address: { city: "Los Angeles" } },
+//   { name: "Bob", age: 40, address: { city: "New York" } },
+// ];
+// const maskNode10 = { address: { city: "New York" } };
+// const result10 = filterTreeAgainstMask(sourceNode10, maskNode10);
+// console.log(result10); // [{ name: "John", age: 25, address: { city: "New York" } }, { name: "Bob", age: 40, address: { city: "New York" } }]
