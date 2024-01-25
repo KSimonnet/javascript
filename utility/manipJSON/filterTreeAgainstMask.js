@@ -40,7 +40,7 @@ function traverseNode(node, mask) {
     const nodeValue = node[key];
     const maskValue = mask[key];
     if (Array.isArray(nodeValue)) {
-      return nodeValue.some((node) => filterTreeAgainstMask(node, maskValue));
+      return nodeValue.some((node) => traverseNode(node, maskValue));
     }
     switch (typeof maskValue) {
       case "string":
@@ -49,9 +49,7 @@ function traverseNode(node, mask) {
           : maskValue === nodeValue;
       case "object":
         if (Array.isArray(nodeValue)) {
-          return nodeValue.some((node) =>
-            filterTreeAgainstMask(node, maskValue),
-          );
+          return nodeValue.some((node) => traverseNode(node, maskValue));
         }
         return typeof nodeValue === "object"
           ? traverseNode(nodeValue, maskValue)
