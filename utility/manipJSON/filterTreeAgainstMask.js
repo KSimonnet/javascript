@@ -44,21 +44,22 @@ function traverseNode(node, mask) {
     }
     switch (typeof maskValue) {
       case "string":
-        return maskValue instanceof RegExp
-          ? maskValue.test(nodeValue)
-          : maskValue === nodeValue;
+        return maskValue === nodeValue;
       case "object":
         if (Array.isArray(nodeValue)) {
           return nodeValue.some((node) => traverseNode(node, maskValue));
+        } else if (maskValue instanceof RegExp) {
+          return maskValue.test(nodeValue);
+        } else if (typeof nodeValue === "object") {
+          return traverseNode(nodeValue, maskValue);
         }
-        return typeof nodeValue === "object"
-          ? traverseNode(nodeValue, maskValue)
-          : false;
+        break;
       default:
         return maskValue === nodeValue;
     }
   });
 }
+
 export { filterTreeAgainstMask };
 
 /**
